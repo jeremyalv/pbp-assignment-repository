@@ -1,25 +1,93 @@
 {% extends 'base.html' %}
-
+  
  {% block content %}
+  <head>
+    <style>
+      * {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .title {
+        font-size: 2.4rem;
+        font-weight: bold;
+        color: #42b549;
+      }
+      .name_header, .id_header {
+        font-size: 1.6rem;
+        margin: 1rem;
+        color: #42b549;
+        font-weight: bold;
+      }
+      .name_data, .id_data {
+        font-size: 1.2rem;
+        margin: .6rem;
+      }
+      table {
+        margin: 1.2rem;
+        border-collapse: collapse;
+      }
+      th {
+        color: #42b549;
+        
+      }
+      th, td {
+        border-bottom: 1px solid grey;
+        border-right: 1px solid grey;
+        padding: 10px;
+      }
+      th:last-child, td:last-child {
+        border-right: none;
+      }
 
-  <h1>Lab 1 Assignment PBP/PBD</h1>
-
-  <h5>Name: </h5>
-  <p>Fill me!</p>
-
-  <h5>Student ID: </h5>
-  <p>Fill me!</p>
-
-  <table>
-    <tr>
-      <th>Item Name</th>
-      <th>Item Price</th>
-      <th>Item Stock</th>
-      <th>Rating</th>
-      <th>Description</th>
-      <th>Item URL</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-  </table>
+    </style>
+  </head>
+  <div class="container">
+    <h1 class="title">Lab 1 Assignment PBP/PBD</h1>
+  
+    <h5 class="name_header">Name: </h5>
+    <p class="name_data">{{ nama }}</p>
+  
+    <h5 class="id_header">Student ID: </h5>
+    <p class="id_data">{{ npm }}</p>
+  
+    <table>
+      <tr>
+        <th>Item Name</th>
+        <th>Item Price</th>
+        <th>Item Stock</th>
+        <th>Rating</th>
+        <th>Description</th>
+        <th>Item URL</th>
+      </tr>
+      {% comment %} Add the data below this line {% endcomment %}
+      {% for katalog in list_katalog %}
+      <tr>
+        <td>
+          {{katalog.item_name}}
+        </td>
+        <td>
+          Rp{{katalog.item_price}}
+        </td>
+        <td>
+          {{katalog.item_stock}} pcs
+        </td>
+        <td>
+          {{katalog.rating}}/5
+        </td>
+        <td>
+          {{katalog.description}}
+        </td>
+        <td>
+          <a href={{katalog.item_url}}>{{katalog.item_name}}</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
 
  {% endblock content %}
