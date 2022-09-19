@@ -1,11 +1,11 @@
-# Tugas 03 PBP Semester Ganjil 2022/2023
+# Tugas 02 PBP Semester Ganjil 2022/2023
 ### By Jeremy Alva Prathama, NPM 2106640354, kelas B
 
 
 ## 1.0. Informasi Proyek
-Dalam rangka memenuhi tugas 03 mata kuliah PBP, saya telah membuat halaman heroku yang mengimplementasikan model MVT dari framework Django serta menggunakan data delivery. Laman tersebut dapat dilihat dibawah:  
+Dalam rangka memenuhi tugas 02 mata kuliah PBP, saya telah membuat halaman heroku yang mengimplementasikan model MVT dari framework Django. Laman tersebut dapat dilihat dibawah:  
 
-[Cek laman tersebut di link berikut!](https://pbp-assignment-02.herokuapp.com/mywatchlist/)
+[Cek laman tersebut di link berikut!](https://pbp-assignment-02.herokuapp.com/)
 
 Terima kasih.
 

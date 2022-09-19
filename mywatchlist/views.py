@@ -1,22 +1,26 @@
 from django.http import HttpResponse
 from django.core import serializers
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from mywatchlist.models import MyWatchList
 
 
 def show_mywatchlist(request):
-    data_watchlist = MyWatchList.objects.all()
     response = {
-        'mywatchlist': data_watchlist,
+        'nama': 'Jeremy Alva Prathama',
+        'npm': 2106640354,
     }
 
     return render(request, "mywatchlist.html", response)
 
 # Retrieve all
 def retrieve_html(request):
-    data = MyWatchList.objects.all()
+    data_watchlist = MyWatchList.objects.all()
+    response = {
+        'mywatchlist': data_watchlist,
+    }
 
-    return HttpResponse(serializers.serialize("html", data), content_type="application/html")
+    return render(request, "watchlist_html.html", response)
 
 def retrieve_xml(request):
     data = MyWatchList.objects.all()
@@ -30,9 +34,13 @@ def retrieve_json(request):
 
 # Retrieve by id
 def retrieve_html_by_id(request, id):
-    data = MyWatchList.objects.filter(pk=id)
+    data_watchlist = MyWatchList.objects.filter(pk=id)
 
-    return HttpResponse(serializers.serialize("html", data), content_type="application/html")
+    response = {
+        'mywatchlist': data_watchlist,
+    }
+
+    return render(request, "watchlist_html.html", response)
 
 def retrieve_xml_by_id(request, id):
     data = MyWatchList.objects.filter(pk=id)

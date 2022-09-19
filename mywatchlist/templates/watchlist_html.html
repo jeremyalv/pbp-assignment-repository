@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+  
+ {% block content %}
+  <head>
+    
+  </head>
+  <div class="container">
+    <h1 class="title">Tugas 3 PBP</h1>
+  
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Rating</th>
+        <th>Watched</th>
+        <th>Release Date</th>
+        <th>Review</th>
+      </tr>
+      {% for movie in mywatchlist %}
+      <tr>
+        <td>
+          {{movie.title}}
+        </td>
+        <td>
+          {{movie.rating}}/5.0
+        </td>
+        <td>
+          {% if movie.watched %}
+            Watched
+          {% else %}
+            Not Watched
+          {% endif %} 
+        </td>
+        <td>
+          {{movie.release_date}}
+        </td>
+        <td>
+          {{movie.review}}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    
+  </div>
+
+ {% endblock content %}
