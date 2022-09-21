@@ -116,11 +116,18 @@ Kita memerlukan data delivery agar data yang kita inginkan dapat diwujudkan dala
             response = self.client.get(reverse('mywatchlist:retrieve_json'))
             self.assertEqual(response.status_code, 200)
     ```
-13. Buatlah mywatchlist/templatetags/ untuk memungkinkan penerapan variabel dalam django
-14. Deploy data ke Heroku dengan melakukan push ke remote repository
-
+13. Deploy data ke Heroku dengan melakukan push ke remote repository
+14. Selesai!
 
 ## 5. Screenshot Postman
+### HTML Response
+![HTML Response](../static/pbp03_html.png)
+
+### XML Response
+![XML Response](../static/pbp03_xml.png)
+
+### JSON Response
+![JSON Response](../static/pbp03_json.png)
 
 
 ## Credits
