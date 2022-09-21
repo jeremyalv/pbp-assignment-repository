@@ -58,12 +58,13 @@ Kita memerlukan data delivery agar data yang kita inginkan dapat diwujudkan dala
 6. Buat sebuah JSON watchlist_data pada mywatchlist/fixtures dan isi dengan 10 obyek JSON yang anda inginkan.
 7. Muat data pada tahap sebelumnya dengan ```python manage.py loaddata watchlist_data.json```
 8. Import model pada views.py ```from mywatchlist.models import MyWatchList```
-9. Tambahkan kode pada views.py untuk mengembalikan data dalam bentuk HTML/XML/JSON
+9. Tambahkan kode pada views.py untuk mengembalikan data dalam bentuk HTML/XML/JSON.
    ```
    def retrieve_html(request):
     data_watchlist = MyWatchList.objects.all()
     response = {
         'mywatchlist': data_watchlist,
+        'is_binge': True if MyWatchList.objects.filter(watched=True).count() >= 5 else False
     }
 
     return render(request, "watchlist_html.html", response)
@@ -75,26 +76,6 @@ Kita memerlukan data delivery agar data yang kita inginkan dapat diwujudkan dala
 
     def retrieve_json(request):
         data = MyWatchList.objects.all()
-
-        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-    # Retrieve by id
-    def retrieve_html_by_id(request, id):
-        data_watchlist = MyWatchList.objects.filter(pk=id)
-
-        response = {
-            'mywatchlist': data_watchlist,
-        }
-
-        return render(request, "watchlist_html.html", response)
-
-    def retrieve_xml_by_id(request, id):
-        data = MyWatchList.objects.filter(pk=id)
-
-        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-
-    def retrieve_json_by_id(request, id):
-        data = MyWatchList.objects.filter(pk=id)
 
         return HttpResponse(serializers.serialize("json", data), content_type="application/json")
     ```
@@ -135,7 +116,8 @@ Kita memerlukan data delivery agar data yang kita inginkan dapat diwujudkan dala
             response = self.client.get(reverse('mywatchlist:retrieve_json'))
             self.assertEqual(response.status_code, 200)
     ```
-13. Deploy data ke Heroku dengan melakukan push ke remote repository
+13. Buatlah mywatchlist/templatetags/ untuk memungkinkan penerapan variabel dalam django
+14. Deploy data ke Heroku dengan melakukan push ke remote repository
 
 
 ## 5. Screenshot Postman

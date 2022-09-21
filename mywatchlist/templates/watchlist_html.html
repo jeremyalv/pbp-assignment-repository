@@ -39,8 +39,12 @@
       </tr>
       {% endfor %}
     </table>
-
     
+    {% if is_binge %}
+      <p>Selamat, kamu sudah banyak menonton!</p>
+    {% else %}
+      <p>Wah, kamu masih sedikit menonton!</p>
+    {% endif %}
   </div>
 
  {% endblock content %}

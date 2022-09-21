@@ -17,6 +17,7 @@ def retrieve_html(request):
     data_watchlist = MyWatchList.objects.all()
     response = {
         'mywatchlist': data_watchlist,
+        'is_binge': True if MyWatchList.objects.filter(watched=True).count() >= 5 else False
     }
 
     return render(request, "watchlist_html.html", response)
