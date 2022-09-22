@@ -61,10 +61,11 @@ Kita memerlukan data delivery agar data yang kita inginkan dapat diwujudkan dala
 9. Tambahkan kode pada views.py untuk mengembalikan data dalam bentuk HTML/XML/JSON.
    ```
    def retrieve_html(request):
+    movie_amount = MyWatchList.objects.count();
     data_watchlist = MyWatchList.objects.all()
     response = {
         'mywatchlist': data_watchlist,
-        'is_binge': True if MyWatchList.objects.filter(watched=True).count() >= 5 else False
+        'is_binge': True if MyWatchList.objects.filter(watched=True).count() >= (movie_amount / 2) else False
     }
 
     return render(request, "watchlist_html.html", response)
