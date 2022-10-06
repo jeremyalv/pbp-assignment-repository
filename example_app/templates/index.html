@@ -2,19 +2,42 @@
 {% load static %}
 
 {% block meta %}
-<title>Hello, world!</title>
 {% endblock meta %}
 
 {% block content %}
-  <h1>PBP Assignment Repository</h1>
-  <h3>Jeremy Alva Prathama - PBP-B - 2106640354</h3>
-  <p style="font-size: 1.2rem;">1. Find the catalog page 
-    <a href='./katalog' style="font-style: bold;">here</a>
-  </p> 
-  <p style="font-size: 1.2rem;">2. Find the mywatchlist page 
-    <a href='./mywatchlist' style="font-style: bold;">here</a>
-  </p> 
-  <p style="font-size: 1.2rem;">3. Find the todolist page 
-    <a href='./todolist' style="font-style: bold;">here</a>
-  </p> 
+<div class="flex flex-col justify-center items-center">
+  <div class="text-3xl text-green-500 font-bold p-2">
+    <p>
+      PBP Assignment Repository
+    </p>
+  </div>
+
+  <div class="text-lg p-1">
+    <p>
+      Jeremy Alva Prathama - PBP-B - 2106640354
+    </p>
+  </div>
+
+  <div class="flex flex-wrap min-w-min">
+    <div>
+      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        <a href='./katalog' style="font-style: bold;">Katalog</a>
+      </button>
+  
+    </div>
+  
+    <div>
+      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        <a href='./mywatchlist' style="font-style: bold;">My Watch List</a> 
+      </button>
+  
+    </div>
+  
+    <div>
+      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        <a href='./todolist' style="font-style: bold;">Todolist</a> 
+      </button>
+    </div>
+  </div>
+</div>
 {% endblock content %}
