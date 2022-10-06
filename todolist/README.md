@@ -1,123 +1,78 @@
-# Tugas 4 PBP Semester Ganjil 2022/2023
+# Tugas 5 PBP Semester Ganjil 2022/2023
 ### By Jeremy Alva Prathama, NPM 2106640354, kelas B
 
 
 ## 1. Informasi Proyek
-Pada Tugas 4 PBP ini, saya membuat aplikasi Todo list dengan fitur autentikasi, serta penambahan dan penghapusan data Task. Lebih lengkapnya, dapat dilihat di link berikut:
+Pada Tugas 5 PBP ini, saya menambahkan styling menggunakan TailwindCSS pada aplikasi Todolist yang telah dibuat sebelumnya. Lebih lengkapnya, dapat dilihat di link berikut:
 
 [Cek laman app tersebut di link berikut!](https://pbp-assignment-02.herokuapp.com/todolist)
 
 Terima kasih.
 
 
-## 2.  Apa kegunaan {% csrf_token %} pada elemen <form>? Apa yang terjadi apabila tidak ada potongan kode tersebut pada elemen <form>?
-{% csrf_token %} berguna untuk melindungi situs terhadap Cross Site Request Forgery attack, suatu jenis kejahatan digital. csrf_token biasa muncul pada form pada template, gunanya adalah mencegah penyerang csrf untuk melakukan request dan pengguna dapat menggunakan website dengan aman. Bila tidak ada csrf_token, penyerang dapat dengan mudah mendapatkan csrf token dan menyerang pengguna.
+## 2. Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
+    Inline CSS: menambahkan styling langsung dalam HTML tag menggunakan style attribute. Kelebihan dari metode ini adalah kita dapat menambahkan styling dengan cepat karena tinggal menambahkan attribute pada tag HTML. Selain itu, kita tidak perlu membuat file terpisah untuk melakukan styling. Namun kekurangannya adalah, cara ini tidak efektif untuk elemen yang membutuhkan styling rumit, karena kode HTMK akan menjadi berantakan akibat bercampur dengan CSS.
+
+    Internal CSS: menambahkan styling di file HTML namun pada tag `<style>` yang diletakkan dalam section `<head>` HTML. Kelebihan dari metode ini adalah dapat membuat styling lebih rapih dibanding inline CSS, karena semua styling akan masuk di satu bagian yang sama. Selain itu, kita dapat menggunakan class dan id selector untuk memilih elemen HTML yang ingin di style. Kekurangannya adalah banyaknya kode pada suatu file HTML dapat membuat halaman kita memiliki loading yang lebih lama.
+
+    External CSS: menambahkan styling di file .css diluar file HTML awal. Kelebihan dari metode ini adalah ia efektif untuk membuat styling yang rumit, karena kode styling dapat dipisahkan sesuai urutan logisnya. Selain itu, kita dapat menggunakan file .css yang sama untuk menerapkan styling ke HTML page berbeda. Kekurangan dari metode ini adalah halaman harus menunggu sampai external css dimuat agar bisa menampilkan styling.
+
+## 3. Jelaskan tag HTML5 yang kamu ketahui.
+    html = menggambarkan root dari dokumen HTML, container untuk semua HTML element
+
+    head = container untuk metadata
+
+    body = mendefinisikan body dari dokumen HTML (mengandung content HTML)
+
+    div = mendefinisikan suatu division atau bagian dari dokumen HTML
+
+    button = mendefinisikan suatu tombol yang dapat di klik
+
+    p = mendefinisikan suatu paragraf
+
+    h1, h2, ... , h6 = mendefinisikan HTML headings sesuai prioritas
+
+    a = mendefinisikan suatu hyperlink
+
+    table = mendefinisikan tabel HTML, dapat mengandung 1 atau lebih elemen th, tr, td
+
+    th = mendefinisikan heading dari table
+
+    tr = mendefinisikan row atau baris dari table
+
+    td = mendefinisikan cell atau data dari table
 
 
-## 3. Apakah kita dapat membuat elemen <form> secara manual (tanpa menggunakan generator seperti {{ form.as_table }})? Jelaskan secara gambaran besar bagaimana cara membuat <form> secara manual.
-Bisa. Untuk membuat form secara manual, kita dapat menggunakan tags seperti `<form>`, dan `<input>` untuk menerima input user. Selain itu, kita dapat menentukan method HTTP yang digunakan serta menambahkan label dan elemen HTML lainnya. Keuntungan dari membuat form secara manual adalah developer dapat membuat customization sendiri.
+## 4. Jelaskan tipe-tipe CSS selector yang kamu ketahui.
+    .className = memilih semua elemen dengan class className
+
+    #idName = memilih semua elemen dengan id idName
+
+    * = memilih semua elemen
+
+    element (misal div {...}) = memilih semua elemen yang bertipe element
+
+    element.class = memilih semua elemen HTML "element" yang memiliki class "class"
+
+    element1 > element2 = memilih semua element2 yang memiliki parent element1
+
+    :active = memilih link yang aktif
+
+    :focus = memilih input elemen yang sedang berstatus fokus
+
+    :hover = memilih item yang sedang di hover mouse
 
 
-## 4.  Jelaskan proses alur data dari submisi yang dilakukan oleh pengguna melalui HTML form, penyimpanan data pada database, hingga munculnya data yang telah disimpan pada template HTML.
-1. Pengguna melakukan pengiriman data form ke server lewat POST request. 
-2. Request POST akan diterima oleh views yang akan berinteraksi dengan models, misalnya dengan menambahkan atau menghapus data. 
-3. Setelah data di proses, django akan mengembalikan data yang diinginkan dengan melakukan redirect ke templates yang sudah memuat data terbaru.
+## 5. Cara mengimplementasi checklist diatas
+    1. Install django-tailwind dengan mengikuti instruksi di [dokumentasi](https://django-tailwind.readthedocs.io/en/latest/installation.html)
 
+    2. Tailwind menggunakan utility-first approach, pengguna hanya perlu memasukkan class yang ada di dokumentasi Tailwind untuk memanfaatkan styling yang ada. Tambahkan styling yang sesuai untuk halaman-halaman di aplikasi todolist dengan menggunakan referensi [dokumentasi TailwindCSS](https://tailwindcss.com/)
 
-## 5. Pengimplementasian checklist tugas
-1. Buat aplikasi baru bernama todolist 
-```
-python manage.py startapp todolist
-```
+    3. Gunakan class="flex" untuk membuat halaman menjadi responsif dengan memanfaatkan flexbox
 
-2. Tambahkan todolist ke INSTALLED_APPS di folder project_django
-```
-INSTALLED_APPS = [
-    ...,
-    'todolist',
-]
-```
+    4. Gunakan classes seperti "text-{color}-{size}", "font-{style}", dll untuk mengatur styling elemen. Referensikan dokumentasi untuk menambahkan styling seperti card, button, dan lain-lain.
 
-3. Buat models.py pada aplikasi todolist
-```
-from django.db import models
-from django.contrib.auth.models import User
-
-class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    is_finished = models.BooleanField(default=False)
-```
-
-4. Lakukan migrasi models serta registrasi pada admin.py
-```
-python manage.py makemigrations
-python manage.py migrate
-```
-
-Pada todolist/admin.py
-
-```
-from django.contrib import admin
-from todolist.models import Task
-
-admin.site.register(Task)
-```
-
-5. Buat views.py untuk mengatur jalannya aplikasi
-Buatlah views berikut
-- show_todolist untuk menunjukkan todolist utama
-- register untuk memungkinkan registrasi user
-- login_user untuk memungkinkan user login
-- logout_user untuk memungkinkan user logout
-- create_task untuk membuat suatu object Task dan menyimpannya di database
-- delete_task untuk menerima suatu Task dengan id tertentu dan menghapusnya dari database
-- toggle_task_status untuk mengubah status task 
-  
-6. Buatlah templates berupa halaman HTML
-Templates yang perlu dibuat sebagai berikut:
-- todolist.html
-- login.html
-- register.html
-- create_task.html
-
-
-7. Tambahkan routing pada aplikasi todolist
-Di todolist/urls.py, tambahkan
-```
-from django.urls import path
-from todolist.views import delete_task, show_todolist, register, login_user, logout_user, create_task, toggle_task_status, delete_task
-
-app_name = 'todolist'
-
-urlpatterns = [
-    path('', show_todolist, name='show_todolist'),
-    path('register/', register, name='register'),
-    path('login/', login_user, name='login'),
-    path('logout/', logout_user, name='logout'),
-    path('create-task/', create_task, name='create_task'),
-    path('toggle-status/<int:id>', toggle_task_status, name='toggle_status'),
-    path('delete-task/<int:id>', delete_task, name='delete_task'),
-]
-```
-
-
-8. Daftarkan todolist pada urls.py project_django
-Pada project_django/urls.py, tambahkan
-```
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('example_app.urls')),
-    path('katalog/', include('katalog.urls')),
-    path('mywatchlist/', include('mywatchlist.urls')),
-    path('todolist/', include('todolist.urls')),
-]
-```
+    5. Setelah menambahkan styling yang diinginkan, lakukan git add, commit, dan push ke repository remote untuk menyimpan hasil pekerjaan.
 
 ...
 
