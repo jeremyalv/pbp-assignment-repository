@@ -1,3 +1,4 @@
+from cmath import isfinite
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -27,6 +28,20 @@ def show_todolist(request):
     }
 
     return render(request, 'todolist.html', context)
+
+# def register(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         confirm_password = request.POST.get('confirm_password')
+
+#         if (password == confirm_password):
+            
+#     else:
+#         pass
+
+#     context = {'form' : form}
+#     return render(request, 'register_html', context)
 
 def register(request):
     form = UserCreationForm()
@@ -69,33 +84,27 @@ def logout_user(request):
 @login_required(login_url='/todolist/login/')
 def create_task(request):
     if request.method == 'POST':
-        # If request is POST, process the form data
-
-        # Create form instance and populate with data from the request object
+        title = request.POST.get('title')
+        date = datetime.datetime.today()
+        description = request.POST.get('description')
         form = TaskForm(request.POST)
 
-        # Check if the form is valid
-        if form.is_valid():
-            # Create new Task item and add to database
-            Task.objects.create(
-                user = request.user,
-                date = datetime.datetime.today(),
-                title = form.cleaned_data['title'],
-                description = form.cleaned_data['description'],
-                is_finished = False,
-            )
-            
-            # Redirect to a Todolist app home URL
-            return HttpResponseRedirect(reverse("todolist:show_todolist"))
-    else:
-        # If request is not POST, create a blank form
-        form = TaskForm()
+        Task.objects.create(
+            user = request.user,
+            date = date,
+            title = title,
+            description = description,
+            is_finished = False,
+        )
 
-    context = {
-        'form': form,
-    } 
+        return HttpResponseRedirect(reverse("todolist:show_todolist"))
+    else:
+        form = TaskForm()
+        messages.info(request, 'Input salah')
     
+    context = {'form' : form}
     return render(request, 'create_task.html', context)
+
 
 @login_required(login_url='/todolist/login')
 def delete_task(request, id):

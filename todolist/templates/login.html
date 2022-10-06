@@ -1,44 +1,72 @@
-<html>
-    {% block meta %}
-    <title>Login</title>
-    {% endblock meta %}
-    
-    {% block content %}
-    
-    <div class = "login">
-    
-        <h1>Login</h1>
-    
+{% extends 'base.html' %}
+{% block meta %}
+{% endblock meta %}
+
+{% block content %}
+
+<div class="flex flex-col justify-center items-center h-screen">
+    <div class="pb-4">
+        <p class="text-4xl text-green-500 font-bold">
+            Login
+        </p>
+    </div>
+    <div>
         <form method="POST" action="">
             {% csrf_token %}
             <table>
                 <tr>
-                    <td>Username: </td>
-                    <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+                    <td class="pb-2 pt-4">
+                        <p class="text-lg pr-4 pb-1">Username</p>
+                        <input type="text" name="username" placeholder="Enter username" 
+                        class="border-1 rounded 
+                            focus:border-1.5 focus:border-green-600">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pb-2">
+                        <p class="text-lg pr-4 pb-1">Password</p>
+                        <input type="password" name="password" placeholder="Enter password" 
+                            class="border-1 rounded 
+                            focus:border-1.5
+                            focus:border-green-600">
+                    </td>
                 </tr>
                         
-                <tr>
-                    <td>Password: </td>
-                    <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+                <tr class="flex justify-center items-center pt-4">
+                    <td>
+                        <button class="text-white bg-green-700 
+                        hover:bg-green-800 focus:ring-4 focus:ring-green-300 
+                        font-medium rounded-lg text-sm px-6 py-1.5 mr-2
+                        mb-2 dark:bg-green-600 dark:hover:bg-green-700 
+                        focus:outline-none dark:focus:ring-green-800">
+                            <input class="text-xl mb-2" type="submit" value="Login">
+                        </button>
+                    </td>
                 </tr>
-    
                 <tr>
-                    <td></td>
-                    <td><input class="btn login_btn" type="submit" value="Login"></td>
                 </tr>
             </table>
         </form>
-    
-        {% if messages %}
+    </div>
+
+    <div class="flex flex-row m-4">
+        <div class="pr-2">
+            Belum mempunyai akun? 
+        </div>
+        <div class="text-green-500 font-normal hover:underline hover:font-bold hover:text-green-600">
+            <a href="{% url 'todolist:register' %}">Buat Akun</a>
+        </div>
+    </div>
+
+        <!-- {% if messages %}
             <ul>
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
             </ul>
-        {% endif %}     
-            
-        Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a>
+        {% endif %}      -->
+
         
-        {% endblock content %}
-    </div>
-</html>
+    
+</div>
+{% endblock content %}

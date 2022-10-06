@@ -1,125 +1,178 @@
-<html>
-    {% load static %}
-    <head>
-        <title>Jeremy Alva PBP Tugas 4</title>
-        <link rel="stylesheet" href="{% static 'css/todolist.css' %}">
-    </head>
-    
-    {% block content %}
-    
-    <!-- Active tasks go here -->
-    <div class="app">
-        <div class="user-section">
-            <div class="user-name">{{username}}</div>
-            <div class="user-details">is logged in</div>
-        </div>
+{% extends 'base.html' %}
 
-        <button class="add-task"><a href="{% url 'todolist:create_task' %}">Add Task</a></button>
+{% block meta %}
+{% endblock meta %}
 
+{% block content %}
+   
+<!-- Active tasks go here -->
+<div class="flex flex-col justify-center items-center">
+    <div class="flex flex-col justify-center items-center pb-4">
+        <div class="text-3xl text-green-500 font-bold">{{username}}</div>
+        <div class="text-xl">is logged in</div>
+    </div>
+
+    <div>
+        <button class="text-white bg-green-700 
+        hover:bg-green-800 focus:ring-4 focus:ring-green-300 
+        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 
+        mb-2 dark:bg-green-600 dark:hover:bg-green-700 
+        focus:outline-none dark:focus:ring-green-800
+        my-4">
+            <a href="{% url 'todolist:create_task' %}">
+                Add Task
+            </a>
+        </button>
+    </div>
+
+    <div class="m-4">
         {% if active_tasks_on == False and finished_tasks_on == False %}
-            <p class="no-tasks-yet">No tasks yet.</p>
+            <p class="text-3xl text-green-500 font-bold">No tasks yet.</p>
         {% else %}
             {% if active_tasks_on %}
-                <div class="todolist">
-                    <table>
-                        <div class="todolist-title">Active Tasks</div>
-                        <div class="finished-message">Let's do this! {{ active_tasks_count }} task left.</div>
-                        <tr class="todolist-header">
-                            <th>Title</th>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Task Status</th>
-                            <th>Finish</th>
-                            <th>Delete Task</th>
-                        </tr>
-                        
-                        
-                        {% for task in active_tasks %}
-                            <tr class="task-item">
-                                <th>
-                                    {{task.title}}
-                                </th>
-                                <th>
-                                    {{task.date}}
-                                </th>
-                                <th>
-                                    {{task.description}}
-                                </th>
-                                <th>
-                                    {% if task.is_finished %}
-                                        Finished
-                                    {% else %}
-                                        Not Finished
-                                    {% endif %}
-                                </th>
-                                <th>
-                                    <button type="submit" class="toggle-status">
-                                        <a href="{% url 'todolist:toggle_status' id=task.id %}">
-                                            ✅
-                                        </a>
-                                    </button>
-                                </th>
-                                <th class="th-delete-task">
-                                    <button type="submit" class="delete-task"><a href="{% url 'todolist:delete_task' id=task.id %}">❌</a></button>
-                                </th>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-            
-            
-            <!-- Completed tasks go here -->
-            {% if finished_tasks_on %}
-                <div class="finished-tasks">
-                    <table>
-                        
-                        <div class="finished-tasks-title">Finished Tasks</div>
-                        <div class="finished-message">Congrats! You have {{ finished_tasks_count }} finished task</div>
-                        <tr class="finished-tasks-header">
-                            <th>Title</th>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Task Status</th>
-                            <th>Unfinish</th>
-                            <th>Delete Task</th>
-                        </tr>
-                        {% for task in finished_tasks %} 
-                            <tr class="finished-task-item">
-                                <th>
-                                    {{task.title}}
-                                </th>
-                                <th>
-                                    {{task.date}}
-                                </th>
-                                <th>
-                                    {{task.description}}
-                                </th>
-                                <th>
-                                    {% if task.is_finished %}
-                                        Finished
-                                    {% else %}
-                                        Not Finished
-                                    {% endif %}
-                                </th>
-                                <th>
-                                    <button type="submit" class="toggle-status">
-                                        <a href="{% url 'todolist:toggle_status' id=task.id %}">
-                                            ✅
-                                        </a>
-                                    </button>
-                                </th>
-                                <th class="th-delete-task">
-                                    <button type="submit" class="delete-task"><a href="{% url 'todolist:delete_task' id=task.id %}">❌</a></button>
-                                </th>
-                            </tr>
-                        {% endfor %}
-                    </table>
+                <!-- Section header -->
+                <div class="flex flex-col justify-center items-center">
+                    <div class="text-3xl">Active Tasks</div>
+                    <div class="text-xl pb-4 pt-2">Let's do this! 
+                        <span class="text-gray-500 font-bold">
+                            {{ active_tasks_count }}
+                        </span> task left.
+                    </div>
+                </div>      
+                
+                <!-- Section content cards -->
+                
+                <!--  -->
+                <div class="flex flex-row flex-wrap items-stretch">
+                {% for task in active_tasks %}
+                    <div class="flex flex-col grow p-6 m-2 min-w-min max-w-sm bg-white rounded-lg border border-gray-200 shadow-md 
+                    hover:bg-gray-200 hover:shadow-xl">
+                        <div>
+                            <a href="#">
+                                <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900">{{task.title}}</h5>
+                            </a>
+                        </div>
+                        <div>
+                            <p class="mb-3 text-sm font-bold text-gray-500">
+                                {% if task.is_finished %}
+                                Completed
+                                {% else %}
+                                Active
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-3 text-sm font-normal text-gray-700">
+                                {{task.date}}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-3 text-sm font-normal text-gray-700">
+                                {{task.description}}
+                            </p>
+                        </div>
+                        <div class="flex flex-row last:mt-auto last:pt-4">
+                            <!-- <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                                Read more
+                            </a>  -->
+                            <button type="submit" class="text-green-700 hover:text-white border 
+                            border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300
+                            font-medium rounded text-sm px-2 py-1
+                            text-center mr-1 mb-1 dark:border-green-500 dark:text-green-500 
+                            dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
+                                <a href="{% url 'todolist:toggle_status' id=task.id %}">
+                                    Finish
+                                </a>
+                            </button>
+                            <button type="submit" class="text-rose-700 hover:text-white border 
+                            border-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300
+                            font-medium rounded text-sm px-2 py-1 
+                            text-center mr-1 mb-1 dark:border-rose-500 dark:text-rose-500 
+                            dark:hover:text-white dark:hover:bg-rose-600 dark:focus:ring-rose-800">
+                                <a href="{% url 'todolist:delete_task' id=task.id %}">
+                                    Delete
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
                 </div>
             {% endif %}
         {% endif %}
-    
-        <button class="logout"><a href="{% url 'todolist:logout' %}">Logout</a></button>    
-    {% endblock content %}
     </div>
-</html>
+    <div class="pb-4">
+        <!-- Completed tasks go here -->
+        {% if finished_tasks_on %}
+            <!-- Section header -->
+            <div class="flex flex-col justify-center items-center">
+                <div class="text-3xl">Finished Tasks</div>
+                <div class="text-xl pb-4 pt-2">Congrats! You have finished
+                    <span class="text-green-500 font-bold">
+                        {{ finished_tasks_count }}
+                    </span> tasks.
+                </div>
+            </div>      
+            
+            <!-- Section content cards -->
+            <div class="flex flex-row flex-wrap items-stretch">
+                {% for task in finished_tasks %}
+                    <div class="flex flex-col grow p-6 m-2 min-w-min max-w-sm bg-white rounded-lg border border-gray-200 shadow-md 
+                    hover:bg-gray-200 hover:shadow-xl">
+                        <a href="#">
+                            <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900">{{task.title}}</h5>
+                        </a>
+                        <p class="mb-3 text-sm font-bold text-green-500">
+                            {% if task.is_finished %}
+                                Completed
+                            {% else %}
+                                Active
+                            {% endif %}
+                        </p>
+                        <p class="mb-3 text-sm font-normal text-gray-700">
+                            {{task.date}}
+                        </p>
+                        <p class="mb-3 text-sm font-normal text-gray-700">
+                            {{task.description}}
+                        </p>
+                        <div class="flex flex-row last:mt-auto last:pt-4">
+                            <!-- <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                                Read more
+                            </a>  -->
+                            <button type="submit" class="text-gray-700 hover:text-white border 
+                            border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300
+                            font-medium rounded text-sm px-2 py-1
+                            text-center mr-1 mb-1 dark:border-gray-500 dark:text-gray-500 
+                            dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                                <a href="{% url 'todolist:toggle_status' id=task.id %}">
+                                    Unfinish
+                                </a>
+                            </button>
+                            <button type="submit" class="text-rose-700 hover:text-white border 
+                            border-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300
+                            font-medium rounded text-sm px-2 py-1 
+                            text-center mr-1 mb-1 dark:border-rose-500 dark:text-rose-500 
+                            dark:hover:text-white dark:hover:bg-rose-600 dark:focus:ring-rose-800">
+                                <a href="{% url 'todolist:delete_task' id=task.id %}">
+                                    Delete
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        <button class="text-white bg-gray-700 
+        hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 
+        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 
+        dark:bg-gray-600 dark:hover:bg-gray-700 
+        focus:outline-none dark:focus:ring-gray-800
+        my-4">
+            <a href="{% url 'todolist:logout' %}">
+                Logout
+            </a>
+        </button>
+    </div>
+</div>
+{% endblock content %}

@@ -3,7 +3,7 @@
         "model": "mywatchlist.mywatchlist",
         "pk": 1,
         "fields": {
-            "watched": true,
+            "watched": false,
             "title": "Boruto: Naruto the Movie",
             "rating": 4,
             "release_date": "28/03/2017",

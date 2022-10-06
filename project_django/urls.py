@@ -22,4 +22,5 @@ urlpatterns = [
     path('katalog/', include('katalog.urls')),
     path('mywatchlist/', include('mywatchlist.urls')),
     path('todolist/', include('todolist.urls')),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
