@@ -24,24 +24,10 @@ def show_todolist(request):
         'active_tasks_count': len(active_tasks),
         'finished_tasks_count': len(finished_tasks),
         'username': request.user.get_username(),
-        'last_login': request.COOKIES['last_login'],
+        # 'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, 'todolist.html', context)
-
-# def register(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         confirm_password = request.POST.get('confirm_password')
-
-#         if (password == confirm_password):
-            
-#     else:
-#         pass
-
-#     context = {'form' : form}
-#     return render(request, 'register_html', context)
 
 def register(request):
     form = UserCreationForm()
@@ -66,7 +52,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             response = HttpResponseRedirect(reverse('todolist:show_todolist'))
-            response.set_cookie('last_login', str(datetime.datetime.now()))
+            # response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
             messages.info(request, 'Username atau password salah!')
@@ -78,7 +64,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('todolist:login'))
-    response.delete_cookie('last_login')
+    # response.delete_cookie('last_login')
     return response
 
 @login_required(login_url='/todolist/login/')
