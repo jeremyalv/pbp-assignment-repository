@@ -968,6 +968,10 @@ select {
   padding: 1.5rem;
 }
 
+.p-2 {
+  padding: 0.5rem;
+}
+
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -1006,6 +1010,11 @@ select {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .pb-4 {
@@ -1334,5 +1343,21 @@ select {
   .dark\:focus\:ring-rose-800:focus {
     --tw-ring-opacity: 1;
     --tw-ring-color: rgb(159 18 57 / var(--tw-ring-opacity));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:w-24 {
+    width: 6rem;
+  }
+
+  .md\:w-36 {
+    width: 9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:flex-row {
+    flex-direction: row;
   }
 }
