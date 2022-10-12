@@ -1,6 +1,7 @@
 from cmath import isfinite
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.core import serializers
 from django.urls import reverse
 from django.shortcuts import render
 from todolist.models import Task
@@ -10,21 +11,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from todolist.forms import TaskForm
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    active_tasks = Task.objects.filter(user=request.user, is_finished=False)
-    finished_tasks = Task.objects.filter(user=request.user, is_finished=True)
     context = {
-        'active_tasks': active_tasks,
-        'finished_tasks': finished_tasks,
-        'active_tasks_on': True if len(active_tasks) > 0 else False,
-        'finished_tasks_on': True if len(finished_tasks) > 0 else False,
-        'active_tasks_count': len(active_tasks),
-        'finished_tasks_count': len(finished_tasks),
         'username': request.user.get_username(),
-        # 'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, 'todolist.html', context)
@@ -77,9 +71,9 @@ def create_task(request):
 
         Task.objects.create(
             user = request.user,
-            date = date,
             title = title,
             description = description,
+            date = date,
             is_finished = False,
         )
 
@@ -91,6 +85,29 @@ def create_task(request):
     context = {'form' : form}
     return render(request, 'create_task.html', context)
 
+@login_required(login_url='/todolist/login/')
+@csrf_exempt
+def create_task_ajax(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        date = datetime.datetime.today()
+
+        Task.objects.create(
+            user = request.user,
+            title = title,
+            description = description,
+            date = date,
+            is_finished = False,
+        )
+
+        return HttpResponseRedirect(reverse("todolist:show_todolist"))
+    else:
+        messages.info(request, "INPUT SALAH")
+
+    return (request, 'show_todolist.html')
+    
+    
 
 @login_required(login_url='/todolist/login')
 def delete_task(request, id):
@@ -99,12 +116,25 @@ def delete_task(request, id):
 
     return HttpResponseRedirect(reverse("todolist:show_todolist"))
 
+@login_required(login_url='/todolist/login/')
+@csrf_exempt
+def delete_task_ajax(request, id):
+    task = Task.objects.get(id=id, user=request.user)
+    task.delete()
+
+    return HttpResponseRedirect(reverse("todolist:show_todolist"))
+
 @login_required(login_url='/todolist/login')
 def toggle_task_status(request, id):
-    task = Task.objects.get(id=id, user=request.user)
+    task = Task.objects.get(id=int(id), user=request.user)
     task.is_finished = not task.is_finished
     task.save(update_fields=['is_finished'])
 
     return HttpResponseRedirect(reverse("todolist:show_todolist"))
 
+@login_required(login_url='/todolist/login')
+def get_json(request):
+    data = Task.objects.filter(user=request.user)
+
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
